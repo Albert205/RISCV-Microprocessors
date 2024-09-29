@@ -1,7 +1,7 @@
 import Opcode_pkg::*;
 
 class OpCode;
-    rand OpCode_t OpCode;
+    randc OpCode_t OpCode;
 
     constraint c_OpCode
     {

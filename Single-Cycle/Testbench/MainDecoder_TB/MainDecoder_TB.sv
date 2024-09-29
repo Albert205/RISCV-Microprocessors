@@ -41,17 +41,17 @@ module MainDecoder_TB;
     initial
     begin
         OpCode op = new();
-        for(int i = 0; i < 10; i++)
+      for(int i = 0; i < 6; i++)
         begin
             #10 op.randomize();
             getCtrlBits(.OpCode(op.OpCode));
         end
     end
 
-    initial
+    initial 
     begin
+      	$dumpvars;
         $dumpfile("dump.vcd");
-        $dumpvars;
     end
 endmodule
 

@@ -6,7 +6,7 @@ module InstructionMemory
 );
 
     // localparam MEMDEPTH = 1 << 30;
-    logic [31:0] r_Instr_Mem [0:63];
+  logic [31:0] r_Instr_Mem [0:31];
     
     initial
         $readmemh("Instructions.txt", r_Instr_Mem);

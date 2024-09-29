@@ -6,6 +6,8 @@ module SingleCycle_TB;
 
     logic i_Clk;
     logic i_Reset;
+  
+  SingleCycleTop uut (.*);
 
     always
     begin
@@ -20,11 +22,13 @@ module SingleCycle_TB;
         i_Reset = 1'b1;
         #(T/2);
         i_Reset = 1'b0;
+      	#(T/2);
+      	i_Reset = 1'b1;
     end
 
     initial
     begin
-        @(negedge i_Reset);
+      	@(posedge i_Reset);
 
         repeat (50) @(negedge i_Clk);
         $finish;

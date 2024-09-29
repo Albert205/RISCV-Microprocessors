@@ -11,7 +11,7 @@ class ALUDecoder_Input;
         {
             2'b00 := 1,
             2'b01 := 1,
-            2'b10 := 4,
+            2'b10 := 2,
             2'b11 := 0
         };
     }
@@ -23,7 +23,7 @@ class ALUDecoder_Input;
         
         funct3 dist
         {
-            3'b000 := 6,
+            3'b000 := 3,
             3'b010 := 1,
             3'b110 := 1,
             3'b111 := 1
@@ -33,7 +33,7 @@ class ALUDecoder_Input;
     constraint c_op5_funct75
     {
         if(funct3 == 3'b000)
-            {op_5, funct7_5} inside {2'b00:2'b11};
+        {op_5, funct7_5} inside {2'b00, 2'b01, 2'b10, 2'b11};
     }
 
 endclass
