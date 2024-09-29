@@ -20,7 +20,6 @@ module DataPath
     output logic       o_funct7_5
 );
 
-    logic [31:0] w_PCNext;
     logic [31:0] w_PC;
     logic [31:0] w_OldPC;
     logic [31:0] w_Adr;
@@ -43,8 +42,8 @@ module DataPath
     (
         .i_Clk(i_Clk),
         .i_Reset(i_Reset),
-        .i_wEnable(i_PCWrite),
-        .i_wData(w_PCNext),
+      	.i_wEnable(i_PCWrite),
+      	.i_wData(w_Result),
         .o_rData(w_PC)
     );
 
@@ -56,6 +55,7 @@ module DataPath
     (
         .i_Clk(i_Clk),
         .i_Reset(i_Reset),
+      	.i_AdrSrc(i_AdrSrc),
         .i_wEnable(i_MemWrite),
         .i_Addr(w_Adr),
         .i_wData(w_WriteData),
@@ -136,7 +136,6 @@ module DataPath
     begin
         w_SrcA = w_PC;
         case(i_ALUSrcA)
-            2'b00:
             2'b01: w_SrcA = w_OldPC;
             2'b10: w_SrcA = w_A;
         endcase
@@ -147,7 +146,6 @@ module DataPath
     begin
         w_SrcB = w_WriteData;
         case(i_ALUSrcB)
-            2'b00:
             2'b01: w_SrcB = w_ImmExt;
             2'b10: w_SrcB = 32'd4;
         endcase
@@ -171,14 +169,13 @@ module DataPath
         .i_wEnable(1'b1),
         .i_wData(w_ALUResult),
         .o_rData(w_ALUOut)
-    )
+    );
 
     // Multiplexer driving Result
     always_comb
     begin
         w_Result = w_ALUOut;
         case(i_ResultSrc)
-            2'b00: 
             2'b01: w_Result = w_Data;
             2'b10: w_Result = w_ALUResult;
         endcase

@@ -91,7 +91,7 @@ module ControlFSM_TB;
         for(int i = 0; i < 6; i++)
         begin
             wait(o_State == FETCH);
-            $display("Instruction #%d", i);
+          $display("Instruction #%0d", i+1);
             c_OpCode.randomize();
             i_OpCode = c_OpCode.OpCode;
             wait(o_State == MEMWB || o_State == MEMWRITE || o_State == ALUWB || o_State == BEQ);

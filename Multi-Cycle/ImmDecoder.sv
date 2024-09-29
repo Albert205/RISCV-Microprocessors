@@ -10,10 +10,7 @@ module ImmDecoder
     begin
         o_ImmSrc = 2'b00;
         case(i_OpCode)
-            lw:                            // Do nothing
             sw:         o_ImmSrc = 2'b01;
-            r_type:                        // Do nothing
-            i_type:                        // Do nothing
             jal:        o_ImmSrc = 2'b11;
             beq:        o_ImmSrc = 2'b10;
         endcase

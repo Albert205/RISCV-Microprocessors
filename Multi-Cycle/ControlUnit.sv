@@ -39,7 +39,7 @@ module ControlUnit
         .o_ALUSrcA(o_ALUSrcA),
         .o_ALUSrcB(o_ALUSrcB),
         .o_AdrSrc(o_AdrSrc),
-        .o_ALUOp(o_ALUOp),
+      	.o_ALUOp(w_ALUOp),
         .o_State()
     );
 
