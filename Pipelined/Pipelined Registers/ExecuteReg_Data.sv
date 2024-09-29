@@ -9,7 +9,7 @@ module ExecuteReg_Data
     // Input from Data Path
     input  logic [31:0] i_RD1D, i_RD2D,
     input  logic [31:0] i_PCD,
-    input  logic [4:0]  i_Rs1D, i_Rs2D
+  	input  logic [4:0]  i_Rs1D, i_Rs2D,
     input  logic [4:0]  i_RdD,
     input  logic [31:0] i_ImmExtD,
     input  logic [31:0] i_PCPlus4D,
@@ -19,7 +19,7 @@ module ExecuteReg_Data
     output logic [31:0] o_PCE,
     output logic [4:0]  o_Rs1E, o_Rs2E,
     output logic [4:0]  o_RdE,
-    output logic [31:0] o_ImmExtE
+  	output logic [31:0] o_ImmExtE,
     output logic [31:0] o_PCPlus4E
 );
 

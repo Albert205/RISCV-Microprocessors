@@ -64,7 +64,8 @@ module ExecuteStage
         .o_Rs1E(o_Rs1E),
         .o_Rs2E(o_Rs2E),
         .o_RdE(o_RdE),
-        .o_ImmExtE(w_ImmExtE)
+      	.o_ImmExtE(w_ImmExtE),
+      	.o_PCPlus4E(o_PCPlus4E)
     );
 
     // Multiplexer for SrcAE
@@ -81,7 +82,7 @@ module ExecuteStage
     // Multiplexer for WriteDataE
     always_comb
     begin
-        w_SrcBE = 0;
+        w_WriteDataE = 0;
         case(i_ForwardBE)
             2'b00: w_WriteDataE = w_RD2E;
             2'b01: w_WriteDataE = i_ResultW;

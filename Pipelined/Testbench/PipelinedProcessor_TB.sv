@@ -6,6 +6,8 @@ module PipelinedProcessor_TB;
 
     logic i_Clk;
     logic i_Reset;
+  
+  	PipelinedProcessor uut (.*);
 
     always
     begin
@@ -20,6 +22,8 @@ module PipelinedProcessor_TB;
         i_Reset = 1'b1;
         #(T/2);
         i_Reset = 1'b0;
+        #(T/2);
+        i_Reset = 1'b1;
     end
 
     initial

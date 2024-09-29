@@ -23,6 +23,8 @@ module MemoryStage
 
     logic [31:0] w_ALUResultM;
     logic [31:0] w_WriteDataM;
+  
+  	assign o_ALUResultM = w_ALUResultM;
 
     MemoryReg_Data MemRegD_Inst
     (

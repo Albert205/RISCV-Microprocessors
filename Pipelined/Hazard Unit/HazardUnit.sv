@@ -46,7 +46,7 @@ module HazardUnit
     end
 
     /* Stall when a load hazard occurs */
-    assign w_lwStall = i_ResultSrcE_0 & ((i_Rs1 == i_RdE) | (i_Rs2D == i_RdE));
+  	assign w_lwStall = i_ResultSrcE_0 & ((i_Rs1D == i_RdE) | (i_Rs2D == i_RdE));
     assign o_StallF  = w_lwStall;
     assign o_StallD  = w_lwStall;
 

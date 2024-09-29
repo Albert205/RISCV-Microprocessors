@@ -34,6 +34,31 @@ module DataPath
 );
 
     logic [31:0] w_PCTargetE; // To be driven by the execute stage
+  
+  	logic [31:0] w_InstrF;
+    logic [31:0] w_PCF;
+    logic [31:0] w_PCPlus4F;
+  
+  	logic [4:0]  w_RdW;             // To be driven by the writeback stage
+    logic [31:0] w_ResultW;         // To be driven by the writeback stage
+
+    logic [31:0] w_RD1D, w_RD2D;
+    logic [31:0] w_PCD;
+    logic [4:0]  w_Rs1D, w_Rs2D;
+    logic [4:0]  w_RdD;
+    logic [31:0] w_ImmExtD;
+    logic [31:0] w_PCPlus4D;
+
+    logic [4:0]  w_RdE;
+    logic [31:0] w_ALUResultE;
+    logic [31:0] w_WriteDataE;
+    logic [31:0] w_PCPlus4E;
+  
+  	logic [4:0] w_RdM;                  // Driven by memory stage
+  
+  	logic [31:0] w_ALUResultM;
+    logic [31:0] w_ReadDataM;
+    logic [31:0] w_PCPlus4M;
 
     FetchStage Fetch_Inst
     (
@@ -55,10 +80,6 @@ module DataPath
         .o_PCPlus4F(w_PCPlus4F)
     );
 
-    logic [31:0] w_InstrF;
-    logic [31:0] w_PCF;
-    logic [31:0] w_PCPlus4F;
-
     DecodeStage Decode_Inst
     (
         .i_Clk(i_Clk),
@@ -70,7 +91,7 @@ module DataPath
 
         // Input from Control Path
         .i_RegWriteW(i_RegWriteW),
-        .i_ImmSrcD(i_ImmSrc),
+      	.i_ImmSrcD(i_ImmSrcD),
         
         // Output to Control Path
         .o_OpCode(o_OpCode),
@@ -94,16 +115,6 @@ module DataPath
         .o_ImmExtD(w_ImmExtD),
         .o_PCPlus4D(w_PCPlus4D)
     );
-
-    logic [4:0]  w_RdW;             // To be driven by the writeback stage
-    logic [31:0] w_ResultW;         // To be driven by the writeback stage
-
-    logic [31:0] w_RD1D, w_RD2D;
-    logic [31:0] w_PCD;
-    logic [31:0] w_Rs1D, w_Rs2D;
-    logic [31:0] w_RdD;
-    logic [31:0] w_ImmExtD;
-    logic [31:0] w_PCPlus4D;
 
     assign o_Rs1D = w_Rs1D;         // Output to Hazard Unit
     assign o_Rs2D = w_Rs2D;         // Output to Hazard Unit
@@ -151,18 +162,9 @@ module DataPath
         .o_PCPlus4E(w_PCPlus4E)
     );
 
-    logic [31:0] w_ALUResultM;
-
-    logic [4:0]  w_RdE;
-    logic [31:0] w_ALUResultE;
-    logic [31:0] w_WriteDataE;
-    logic [31:0] w_PCPlus4E;
-
     assign o_RdE = w_RdE;               // Output to Hazard Unit (driven by execute stage)
 
-    logic [4:0] w_RdM;                  // Driven by memory stage
-
-    assign O_RdM = w_RdM;               // Output to Hazard Unit (driven by memory stage)
+    assign o_RdM = w_RdM;               // Output to Hazard Unit (driven by memory stage)
 
     MemoryStage Mem_Inst
     (
@@ -186,10 +188,6 @@ module DataPath
        .o_ReadDataM(w_ReadDataM),
        .o_PCPlus4M(w_PCPlus4M)
     );
-
-    logic [31:0] w_ALUResultM;
-    logic [31:0] w_ReadDataM;
-    logic [31:0] w_PCPlus4M;
 
     WritebackStage WB_Inst 
     (

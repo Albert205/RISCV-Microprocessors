@@ -33,7 +33,7 @@ module FetchStage
         .o_PCF(w_PCF)
     );
 
-    InstructionMemory
+    InstructionMemory IM
     (
         .i_Addr(w_PCF),
         .o_Instr(o_InstrF)

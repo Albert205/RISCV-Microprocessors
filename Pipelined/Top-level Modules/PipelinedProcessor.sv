@@ -41,12 +41,15 @@ module PipelinedProcessor
     (
         .i_Clk(i_Clk),
         .i_Reset(i_Reset),
+      
+      	// Input from Hazard Unit
+      	.i_FlushE(w_FlushE),
 
         // Outputs to Hazard Unit
         .o_PCSrcE(w_PCSrcE),
         .o_ResultSrcE_0(w_ResultSrcE_0),
         .o_RegWriteM(w_RegWriteM),
-        .o_RegWriteW(w_RegWriteW),
+      	.o_RegWriteW(w_RegWriteW),					// Also used by the Data Path
 
         // Inputs from Data Path
         .i_ZeroE(w_ZeroE),
@@ -56,7 +59,6 @@ module PipelinedProcessor
         
         // Outputs to Data Path
         .o_ImmSrcD(w_ImmSrcD),
-        .o_RegWriteW(w_RegWriteW),
         .o_ALUControlE(w_ALUControlE),
         .o_ALUSrcE(w_ALUSrcE),
         .o_MemWriteM(w_MemWriteM),

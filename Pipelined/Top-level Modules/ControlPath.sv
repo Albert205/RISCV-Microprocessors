@@ -2,6 +2,9 @@ module ControlPath
 (
     input  logic       i_Clk,
     input  logic       i_Reset,
+  
+  	// Input from Hazard Unit
+  	input logic		   i_FlushE,
 
     // Output to Hazard Unit
     output logic       o_PCSrcE,          // Also used by Data Path
@@ -17,12 +20,28 @@ module ControlPath
 
     // Output to Data Path
     output logic [1:0] o_ImmSrcD,
-    output logic       o_RegWriteW,
     output logic [2:0] o_ALUControlE,
     output logic       o_ALUSrcE,
     output logic       o_MemWriteM,
     output logic [1:0] o_ResultSrcW
 );
+  
+  	logic       w_RegWriteD;
+    logic [1:0] w_ResultSrcD;
+    logic       w_MemWriteD;
+    logic       w_JumpD;
+    logic       w_BranchD;
+    logic [2:0] w_ALUControlD;
+    logic       w_ALUSrcD;
+  
+  	logic       w_RegWriteE;
+    logic [1:0] w_ResultSrcE;
+    logic       w_MemWriteE;
+    logic       w_JumpE;
+    logic       w_BranchE;
+  
+  	logic       w_RegWriteM;
+    logic [1:0] w_ResultSrcM;
 
     ControlUnit Ctrl_Inst
     (
@@ -42,14 +61,6 @@ module ControlPath
         // Output to Data Path
         .o_ImmSrcD(o_ImmSrcD)
     );
-
-    logic       w_RegWriteD;
-    logic [1:0] w_ResultSrcD;
-    logic       w_MemWriteD;
-    logic       w_JumpD;
-    logic       w_BranchD;
-    logic [2:0] w_ALUControlD;
-    logic       w_ALUSrcD;
 
     ExecuteReg_Ctrl ExecRegC_Inst
     (
@@ -80,12 +91,6 @@ module ControlPath
         .o_ALUSrcE(o_ALUSrcE)
     );
 
-    logic       w_RegWriteE;
-    logic [1:0] w_ResultSrcE;
-    logic       w_MemWriteE;
-    logic       w_JumpE;
-    logic       w_BranchE;
-
     assign o_PCSrcE       = (i_ZeroE & w_BranchE) | (w_JumpE);      // Output to Data Path and Hazard Unit
     assign o_ResultSrcE_0 = w_ResultSrcE[0];                        // Output to Hazard Unit
 
@@ -106,9 +111,6 @@ module ControlPath
         // Output to Data Path
         .o_MemWriteM(o_MemWriteM)
     );
-
-    logic       w_RegWriteM;
-    logic [1:0] w_ResultSrcM;
 
     assign o_RegWriteM = w_RegWriteM;           // Output to Hazard Unit (from memory stage)
 
